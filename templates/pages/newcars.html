@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<h1>New Cars page </h1>
+{% for x in Ncars %}
+    <h2>{{x.ad_title}}</h2>
+    <h2>{{x.price}}</h2>
+    <h2>{{x.type}}</h2>
+    <h2>{{x.brand}}</h2>
+    <h2>{{x.CC}}</h2>
+{% endfor %}
+{% endblock content %}
