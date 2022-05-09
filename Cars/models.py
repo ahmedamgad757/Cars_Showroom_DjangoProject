@@ -1,3 +1,5 @@
+from enum import unique
+from tabnanny import verbose
 from django.db import models
 from datetime import datetime
 # Create your models here.
@@ -12,7 +14,7 @@ Brand_list=[
         ('Audi','Audi'),('BMW','BMW'),('BYD','BYD'),('Chery','Chery'),('Chevrolet','Chevrolet'),('Citroën','Citroën'),
         ('Daewoo','Daewoo'),('Dodge','Dodge'),('Ferrari','Ferrari'),('Fiat','Fiat'),('Ford','Ford'),('Geely','Geely'),
         ('Honda','Honda'),('Hyundai','Hyundai'),('Jeep','Jeep'),('Kia','Kia'),('Lada','Lada'),('Land Rover','Land Rover'),
-        ('Mercedes','Mercedes'),('Nissan','Nissan'),('Opel','Opel'),('Peugeot','Peugeot'),('Porsche','Porsche'),('Renault','Renault'),
+        ('Mercedes','Mercedes'),('MG','MG'),('Nissan','Nissan'),('Opel','Opel'),('Peugeot','Peugeot'),('Porsche','Porsche'),('Renault','Renault'),
         ('Skoda','Skoda'),('Speranza','Speranza'),('Toyota','Toyota'),('Volvo','Volvo'),('Other','Other'),
     ]
 Fuel_list=[
@@ -25,8 +27,10 @@ Model_Year_list=[
         ('2004','2004'),('2003','2003'),('2002','2002'),('2001','2001'),('2000','2000'),('1999','1999'),
         ('1998','1998'),('1997','1997'),('1996','1996'),('1995','1995'),('Older than 1995','Older tahn 1995'),
     ]
+
+
 class NewCar(models.Model):
-    ad_title=models.CharField(max_length=20,verbose_name='Title')
+    ad_title=models.CharField(max_length=20,verbose_name='Title',unique=True)
     Describtion=models.TextField(null=True,blank=True,verbose_name='Describtion')
     price=models.DecimalField(max_digits=8,decimal_places=2)
     type=models.CharField(max_length=20,choices=Type_list)
@@ -43,8 +47,10 @@ class NewCar(models.Model):
     def __str__(self):
         return self.ad_title
 
+
+
 class UsedCar(models.Model):
-    ad_title=models.CharField(max_length=20,verbose_name='Title')
+    ad_title=models.CharField(max_length=20,verbose_name='Title',unique=True)
     Describtion=models.TextField(null=True,blank=True,verbose_name='Describtion')
     travelled_KM=models.IntegerField()
     owner_name=models.CharField(max_length=20,verbose_name='Owner Name')
@@ -67,3 +73,7 @@ class UsedCar(models.Model):
 
     def __str__(self):
         return self.ad_title
+
+class BrandLogos(models.Model):
+    image=models.ImageField(upload_to='photos',default='image/default car.png',verbose_name='Logo')
+    website=models.CharField(max_length=50,verbose_name='website',null=True,blank=True)
